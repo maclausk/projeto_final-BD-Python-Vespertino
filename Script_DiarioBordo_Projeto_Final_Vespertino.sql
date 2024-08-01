@@ -33,6 +33,8 @@ INSERT INTO Aluno (ra) VALUES ('00169506');
 -- Pesquisa todos os campos (*) da tabela aluno
 DESCRIBE Aluno;
 
+-- Verificando se os registros foram criados
+SELECT * from Aluno;
 
 -- Criação da tabela diariobordo com auto incremento no ID
 CREATE TABLE diariobordo (
@@ -51,11 +53,11 @@ CREATE TABLE diariobordo (
 INSERT INTO diariobordo (texto, datahora, fk_aluno_id)
 VALUES ('31/07/2024 - Hoje aprendemos a criar e modificar tabelas no MySQL, incluindo a aplicação de constraints UNIQUE e a inserção de registros. Também verificamos os dados nas tabelas.', '2024-07-31 17:30:00', (SELECT id FROM Aluno WHERE ra = '00169506'));
 
+-- Verificando se os registros foram criados
+SELECT * from diariobordo;
+
 -- Verificar os registros na tabela Aluno
 SELECT * FROM Aluno;
-
--- Verificar os registros na tabela diariobordo
-SELECT * FROM diariobordo;
 
 -- Selecionar dados das tabelas diariobordo e Aluno combinando-as com base na chave estrangeira fk_aluno_id
 SELECT
@@ -72,3 +74,6 @@ ON
     d.fk_aluno_id = a.id; -- Especifica a condição de junção onde fk_aluno_id na tabela diariobordo é igual ao id na tabela Aluno
 
 -- FIM - 31/07/2024
+
+-- PENDENTE: 
+-- Exportar também em PNG no formato pé de galinha, e enviar junto para o professor.
