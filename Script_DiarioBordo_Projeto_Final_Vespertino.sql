@@ -1,3 +1,9 @@
+-- Projeto Final - BD, Python e IA - SENAI-DF | Vespertino
+-- Nome: Marcelo Avelino
+-- RA: 00169506
+-- Data de Início: 31/07/2024
+
+
 -- Criação do banco de dados 'diario_de_bordo'
 CREATE DATABASE diario_de_bordo;
 
@@ -66,4 +72,3 @@ ON
     d.fk_aluno_id = a.id; -- Especifica a condição de junção onde fk_aluno_id na tabela diariobordo é igual ao id na tabela Aluno
 
 -- FIM - 31/07/2024
-
