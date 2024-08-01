@@ -15,7 +15,6 @@ Este repositório contém o diário de bordo e o código do projeto final do cur
   - `projetologico.sql`: Script SQL do modelo lógico.
   - `brModelo.jar`: Ferramenta utilizada para criação dos modelos.
 - `/codigo_python`: Scripts e códigos Python do projeto.
-- `/dados`: Datasets e arquivos de banco de dados.
 - `/documentacao`: Documentos adicionais e diagramas.
 - `/`: Contém o arquivo `Script_DiarioBordo_Projeto_Final_Vespertino.sql`, que é atualizado diariamente com registros do diário de bordo e informações sobre o progresso do projeto.
 
