@@ -268,26 +268,56 @@ Esta consulta fornecerá uma visão abrangente de todos os registros em suas tab
 */
 
 -- 06/08/2024 - JOIN
+-- Esta consulta faz um JOIN entre as tabelas diariobordo e aluno para obter os textos e datas do diário de bordo junto com o RA dos alunos
+
+-- Seleciona as colunas desejadas
 SELECT
-	d.texto,
-    d.datahora,
-    a.ra
-    FROM
-    diariobordo d
-	JOIN
-	aluno a
-    ON d.fk_aluno_id = a.id;
+    d.texto, -- Texto do diário de bordo
+    d.datahora, -- Data e hora do registro no diário de bordo
+    a.ra -- RA do aluno associado ao registro
+FROM
+    diariobordo d -- Define alias 'd' para a tabela diariobordo
+JOIN
+    aluno a -- Define alias 'a' para a tabela aluno
+ON 
+    d.fk_aluno_id = a.id; -- Condição de junção: chave estrangeira fk_aluno_id em diariobordo corresponde ao id em aluno
 
 /*
-pedir pro chatgpt corrigir isso aqui
-Se não definir LEFT, RIGHT etc, a tabela mencionada em primeiro será a left e a tabela mencionada em segundo é right.
-diariobordo = lef pq é mencionada primeira na tabela. 
-aluno = right pq foi mencionada depois da primeira.
-No Pandas tem que determinar qual é a coluna da esquerda e a da direita. Esse código faz o relacionamento e deterina quais colunas eu quero mostrar.
-No Pandas tem que definir um comando pra primeira parte da consulta e outro comando pra a segunda parte do código
-Mas isso na pesquisa. 
+Se não definir LEFT, RIGHT etc, o JOIN padrão é o INNER JOIN.
+No INNER JOIN, apenas os registros que têm correspondências em ambas as tabelas são retornados.
+No Pandas, para fazer uma junção semelhante, usamos pd.merge() e definimos quais colunas de cada DataFrame serão usadas para a junção.
 
-Inserir no código mais alunos, mas sem registros de diários. Gerar no 
+Exemplo em Pandas:
+resultado = pd.merge(df_diariobordo, df_alunos, how='inner', left_on='fk_aluno_id', right_on='id')
+resultado_selecionado = resultado[['texto', 'datahora', 'ra']]
+*/
 
-/*
+-- Inserção de mais alunos sem registros de diários (registrados em 06/08/2024)
+INSERT INTO aluno (ra) VALUES ('00034567');
+INSERT INTO aluno (ra) VALUES ('00034568');
+INSERT INTO aluno (ra) VALUES ('00034569');
+INSERT INTO aluno (ra) VALUES ('00034570');
+INSERT INTO aluno (ra) VALUES ('00034571');
+INSERT INTO aluno (ra) VALUES ('00034572');
+INSERT INTO aluno (ra) VALUES ('00034573');
+INSERT INTO aluno (ra) VALUES ('00034574');
+INSERT INTO aluno (ra) VALUES ('00034575');
+INSERT INTO aluno (ra) VALUES ('00034576');
+
+-- Consulta para verificar os dados dos alunos, incluindo aqueles sem registros no diário de bordo
+SELECT
+    a.ra, -- RA do aluno
+    a.nome, -- Nome do aluno
+    a.tempoestudo, -- Tempo de estudo do aluno
+    a.rendafamiliar, -- Renda familiar do aluno
+    d.texto, -- Texto do diário de bordo (pode ser NULL)
+    d.datahora -- Data e hora do registro no diário de bordo (pode ser NULL)
+FROM
+    aluno a -- Define alias 'a' para a tabela aluno
+LEFT JOIN
+    diariobordo d -- Define alias 'd' para a tabela diariobordo
+ON
+    a.id = d.fk_aluno_id; -- Condição de junção: chave primária id em aluno corresponde à chave estrangeira fk_aluno_id em diariobordo
+
+
 
