@@ -266,3 +266,28 @@ ORDER BY:
 Ordenamos os resultados pelo ID do aluno (a.id), data e hora da atividade (d.datahora), e ID da avaliação (av.id), para organizar os dados de maneira lógica e cronológica.
 Esta consulta fornecerá uma visão abrangente de todos os registros em suas tabelas Aluno, diariobordo, e avaliacao, mostrando como eles estão relacionados entre si.
 */
+
+-- 06/08/2024 - JOIN
+SELECT
+	d.texto,
+    d.datahora,
+    a.ra
+    FROM
+    diariobordo d
+	JOIN
+	aluno a
+    ON d.fk_aluno_id = a.id;
+
+/*
+pedir pro chatgpt corrigir isso aqui
+Se não definir LEFT, RIGHT etc, a tabela mencionada em primeiro será a left e a tabela mencionada em segundo é right.
+diariobordo = lef pq é mencionada primeira na tabela. 
+aluno = right pq foi mencionada depois da primeira.
+No Pandas tem que determinar qual é a coluna da esquerda e a da direita. Esse código faz o relacionamento e deterina quais colunas eu quero mostrar.
+No Pandas tem que definir um comando pra primeira parte da consulta e outro comando pra a segunda parte do código
+Mas isso na pesquisa. 
+
+Inserir no código mais alunos, mas sem registros de diários. Gerar no 
+
+/*
+
