@@ -2,20 +2,12 @@
 CREATE DATABASE IF NOT EXISTS projetodiario;
 USE projetodiario;
 
--- Criação da tabela Aluno com auto incremento no ID
+-- CRIAÇÃO DA TABELA ALUNO COM AUTO-INCREMENTO NO ID
 CREATE TABLE Aluno (
     id INT(6) PRIMARY KEY AUTO_INCREMENT, -- Coluna 'id' como chave primária auto incrementada
     ra CHAR(8) NOT NULL, -- Coluna 'ra' do tipo caractere com 8 posições, não nula
     CONSTRAINT unique_ra UNIQUE (ra) -- Restrição para garantir que o valor de 'ra' seja único
 );
-
--- Adicionar uma constraint UNIQUE na coluna 'ra', caso não tivesse sido adicionada no momento da criação da tabela.
--- ALTER TABLE Aluno ADD CONSTRAINT constraint_name UNIQUE (ra); -- Esta linha está comentada porque a restrição UNIQUE já foi adicionada
-
--- Pesquisa todos os campos (*) da tabela aluno
-SELECT * FROM aluno;
--- Mostra toda a estrutura da tabela
-DESCRIBE aluno;
 
 -- Inserção de registros na tabela Aluno (registrados em 29/07/2024)
 INSERT INTO Aluno (ra) VALUES ('00169506'); -- RA de Marcelo Avelino
@@ -28,40 +20,64 @@ INSERT INTO Aluno (ra) VALUES ('00034553');
 INSERT INTO Aluno (ra) VALUES ('00034554');
 INSERT INTO Aluno (ra) VALUES ('00034555');
 INSERT INTO Aluno (ra) VALUES ('00034556');
+INSERT INTO Aluno (ra) VALUES ('00034557');
+INSERT INTO Aluno (ra) VALUES ('00034558');
+INSERT INTO Aluno (ra) VALUES ('00034559');
+INSERT INTO Aluno (ra) VALUES ('00034560');
+INSERT INTO Aluno (ra) VALUES ('00034561');
+INSERT INTO Aluno (ra) VALUES ('00034562');
+INSERT INTO Aluno (ra) VALUES ('00034563');
+INSERT INTO Aluno (ra) VALUES ('00034564');
+INSERT INTO Aluno (ra) VALUES ('00034565');
+INSERT INTO Aluno (ra) VALUES ('00034566');
 
--- Criação da tabela diariobordo com auto incremento no ID (criada em 30/07/2024)
+-- Consultar status da tabela Aluno
+SELECT * FROM Aluno; -- Seleciona todos os registros da tabela Aluno
+DESCRIBE Aluno; -- Mostra a estrutura da tabela Aluno
+
+-- CRIAÇÃO DA TABELA DIÁRIOBORDO COM AUTO-INCREMENTO NO ID
 CREATE TABLE diariobordo (
     id INT(6) PRIMARY KEY AUTO_INCREMENT, -- Coluna 'id' como chave primária auto incrementada
     texto TEXT NOT NULL, -- Coluna 'texto' do tipo texto, não nula
-    datahora DATETIME, -- Coluna 'datahora' do tipo datetime
-    fk_Aluno_id INT, -- Coluna 'fk_Aluno_id' do tipo inteiro, chave estrangeira
-    FOREIGN KEY (fk_aluno_id) REFERENCES Aluno(id) ON DELETE CASCADE -- Chave estrangeira referenciando 'id' da tabela 'Aluno', com deleção em cascata
+    datahora DATETIME NOT NULL, -- Coluna 'datahora' do tipo datetime, não nula
+    fk_aluno_id INT NOT NULL -- Coluna 'fk_aluno_id' do tipo inteiro, chave estrangeira, não nula
 );
 
--- Visualizar os dados na tabela diariobordo
-SELECT * FROM diariobordo;
+-- Adiciona uma constraint de chave estrangeira na tabela diariobordo
+-- Essa linha cria uma chave estrangeira 'fk_diariobordo' que referencia a coluna 'id' da tabela 'Aluno'.
+-- ON DELETE CASCADE significa que, se um registro em 'Aluno' for deletado, todos os registros em 'diariobordo' relacionados também serão deletados.
+ALTER TABLE diariobordo ADD CONSTRAINT fk_diariobordo
+    FOREIGN KEY (fk_aluno_id) REFERENCES aluno(id) ON DELETE CASCADE;
 
--- Visualizar as tabelas disponíveis no banco de dados schooltracker
-SHOW TABLES;
-
--- Inserindo registros na tabela diariobordo
--- Inserção de registros na tabela diariobordo (registrados em 30/07/2024)
+-- Inserção de registros na tabela diariobordo
 INSERT INTO diariobordo (texto, datahora, fk_aluno_id) VALUES 
 ('Introdução ao Python', '2024-07-31 09:00:00', (SELECT id FROM Aluno WHERE ra = '00169506')),
-('Variáveis e Tipos de Dados', '2024-08-01 10:00:00', (SELECT id FROM Aluno WHERE ra = '00169506')),
-('Estruturas de Controle', '2024-08-02 11:00:00', (SELECT id FROM Aluno WHERE ra = '00169506')),
-('Funções e Módulos', '2024-08-03 12:00:00', (SELECT id FROM Aluno WHERE ra = '00169506')),
-('Introdução ao NumPy', '2024-08-04 13:00:00', (SELECT id FROM Aluno WHERE ra = '00169506')),
-('Manipulação de Dados com Pandas', '2024-08-05 14:00:00', (SELECT id FROM Aluno WHERE ra = '00169506')),
-('Visualização de Dados com Matplotlib', '2024-08-06 15:00:00', (SELECT id FROM Aluno WHERE ra = '00169506')),
-('Introdução ao Machine Learning', '2024-08-07 16:00:00', (SELECT id FROM Aluno WHERE ra = '00169506')),
-('Redes Neurais com TensorFlow', '2024-08-08 17:00:00', (SELECT id FROM Aluno WHERE ra = '00169506')),
-('Projeto Final de IA', '2024-08-09 18:00:00', (SELECT id FROM Aluno WHERE ra = '00169506'));
+('Variáveis e Tipos de Dados', '2024-08-01 10:00:00', (SELECT id FROM Aluno WHERE ra = '00034548')),
+('Estruturas de Controle', '2024-08-02 11:00:00', (SELECT id FROM Aluno WHERE ra = '00034549')),
+('Funções e Módulos', '2024-08-03 12:00:00', (SELECT id FROM Aluno WHERE ra = '00034550')),
+('Introdução ao NumPy', '2024-08-04 13:00:00', (SELECT id FROM Aluno WHERE ra = '00034551')),
+('Manipulação de Dados com Pandas', '2024-08-05 14:00:00', (SELECT id FROM Aluno WHERE ra = '00034552')),
+('Visualização de Dados com Matplotlib', '2024-08-06 15:00:00', (SELECT id FROM Aluno WHERE ra = '00034553')),
+('Introdução ao Machine Learning', '2024-08-07 16:00:00', (SELECT id FROM Aluno WHERE ra = '00034554')),
+('Redes Neurais com TensorFlow', '2024-08-08 17:00:00', (SELECT id FROM Aluno WHERE ra = '00034555')),
+('Projeto Final de IA', '2024-08-09 18:00:00', (SELECT id FROM Aluno WHERE ra = '00034556')),
+('Estudo de Algoritmos', '2024-08-10 09:00:00', (SELECT id FROM Aluno WHERE ra = '00034557')),
+('Revisão de Matemática', '2024-08-11 10:00:00', (SELECT id FROM Aluno WHERE ra = '00034558')),
+('Projeto de Física', '2024-08-12 11:00:00', (SELECT id FROM Aluno WHERE ra = '00034559')),
+('Leitura de Literatura', '2024-08-13 12:00:00', (SELECT id FROM Aluno WHERE ra = '00034560')),
+('Experimento de Química', '2024-08-14 13:00:00', (SELECT id FROM Aluno WHERE ra = '00034561')),
+('Análise de Dados', '2024-08-15 14:00:00', (SELECT id FROM Aluno WHERE ra = '00034562')),
+('Prática de Programação', '2024-08-16 15:00:00', (SELECT id FROM Aluno WHERE ra = '00034563')),
+('Discussão em Grupo', '2024-08-17 16:00:00', (SELECT id FROM Aluno WHERE ra = '00034564')),
+('Pesquisa de História', '2024-08-18 17:00:00', (SELECT id FROM Aluno WHERE ra = '00034565')),
+('Exercício de Biologia', '2024-08-19 18:00:00', (SELECT id FROM Aluno WHERE ra = '00034566'));
 
 -- Visualizar os dados na tabela diariobordo
-SELECT * FROM diariobordo;
+SELECT * FROM diariobordo; -- Seleciona todos os registros da tabela diariobordo
+-- Visualizar as tabelas disponíveis no banco de dados projetodiario
+SHOW TABLES; -- Mostra todas as tabelas do banco de dados projetodiario
 
--- Criação da tabela avaliacao (criada em 01/08/2024)
+--- Criação da tabela avaliacao (criada em 01/08/2024)
 CREATE TABLE avaliacao (
     id INT PRIMARY KEY AUTO_INCREMENT, -- Coluna 'id' como chave primária auto incrementada
     nota1 INT, -- Coluna 'nota1' do tipo inteiro
@@ -78,7 +94,22 @@ INSERT INTO avaliacao (nota1, nota2, nota3, nota4, fk_aluno_id) VALUES
 (75, 80, 68, 78, (SELECT id FROM Aluno WHERE ra = '00034548')),
 (95, 92, 88, 91, (SELECT id FROM Aluno WHERE ra = '00034549')),
 (65, 70, 60, 72, (SELECT id FROM Aluno WHERE ra = '00034550')),
-(85, 87, 85, 90, (SELECT id FROM Aluno WHERE ra = '00034551'));
+(85, 87, 85, 90, (SELECT id FROM Aluno WHERE ra = '00034551')),
+(80, 85, 70, 75, (SELECT id FROM Aluno WHERE ra = '00034552')),
+(78, 82, 79, 84, (SELECT id FROM Aluno WHERE ra = '00034553')),
+(88, 89, 85, 87, (SELECT id FROM Aluno WHERE ra = '00034554')),
+(77, 74, 80, 82, (SELECT id FROM Aluno WHERE ra = '00034555')),
+(90, 91, 86, 88, (SELECT id FROM Aluno WHERE ra = '00034556')),
+(65, 70, 75, 80, (SELECT id FROM Aluno WHERE ra = '00034557')),
+(85, 88, 82, 85, (SELECT id FROM Aluno WHERE ra = '00034558')),
+(70, 72, 68, 75, (SELECT id FROM Aluno WHERE ra = '00034559')),
+(92, 93, 89, 90, (SELECT id FROM Aluno WHERE ra = '00034560')),
+(83, 85, 80, 82, (SELECT id FROM Aluno WHERE ra = '00034561')),
+(79, 78, 74, 76, (SELECT id FROM Aluno WHERE ra = '00034562')),
+(88, 90, 85, 87, (SELECT id FROM Aluno WHERE ra = '00034563')),
+(74, 77, 70, 73, (SELECT id FROM Aluno WHERE ra = '00034564')),
+(91, 89, 87, 88, (SELECT id FROM Aluno WHERE ra = '00034565')),
+(85, 87, 82, 84, (SELECT id FROM Aluno WHERE ra = '00034566'));
 
 -- Visualizar os dados na tabela avaliacao
 SELECT * FROM avaliacao;
@@ -102,70 +133,136 @@ JOIN aluno
 ON diariobordo.fk_aluno_id = aluno.id;
 
 -- Consulta para combinar dados das tabelas 'aluno' e 'avaliacao' e obter as notas dos alunos
-SELECT a.id, a.ra, av.nota1, av.nota2, av.nota3, av.nota4
-FROM Aluno a
-JOIN avaliacao av ON a.id = av.fk_aluno_id;
--- Realiza um JOIN entre as tabelas 'aluno' e 'avaliacao' onde 'id' da tabela 'aluno' corresponde a 'fk_aluno_id' da tabela 'avaliacao'
-
+SELECT 
+    a.id, -- Seleciona a coluna 'id' da tabela 'Aluno'
+    a.ra, -- Seleciona a coluna 'ra' da tabela 'Aluno'
+    av.nota1, -- Seleciona a coluna 'nota1' da tabela 'avaliacao'
+    av.nota2, -- Seleciona a coluna 'nota2' da tabela 'avaliacao'
+    av.nota3, -- Seleciona a coluna 'nota3' da tabela 'avaliacao'
+    av.nota4 -- Seleciona a coluna 'nota4' da tabela 'avaliacao'
+FROM 
+    Aluno a -- Define 'a' como alias (apelido) para a tabela 'Aluno'
+JOIN 
+    avaliacao av -- Define 'av' como alias (apelido) para a tabela 'avaliacao'
+ON 
+    a.id = av.fk_aluno_id; -- Condição de junção: a coluna 'fk_aluno_id' da tabela 'avaliacao' deve ser igual à coluna 'id' da tabela 'Aluno'
+-- Realiza um JOIN entre as tabelas 'Aluno' e 'avaliacao' onde 'id' da tabela 'Aluno' corresponde a 'fk_aluno_id' da tabela 'avaliacao'
 
 -- 05/08/2024
-
+-- Adicionar colunas 'nome', 'tempoestudo' e 'rendafamiliar' na tabela Aluno
 ALTER TABLE aluno ADD COLUMN nome VARCHAR(80);
-
 ALTER TABLE aluno ADD COLUMN tempoestudo INT;
-
 ALTER TABLE aluno ADD COLUMN rendafamiliar DECIMAL(10, 2);
 
-DESCRIBE Aluno;
+DESCRIBE Aluno; -- Mostra a estrutura da tabela Aluno após adicionar as novas colunas
 
-select * from aluno;
+/*
+-- Inserção de registros na tabela Aluno com as novas colunas (registrados em 05/08/2024)
+Como já existem registros na tabela com os mesmos ra, você pode usar o comando INSERT IGNORE ou INSERT ... ON DUPLICATE KEY UPDATE.
+No entanto, para evitar o uso de UPDATE, você pode inserir apenas os novos registros:
 
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230001', 'Ana Silva', 6, 2500.50);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230002', 'Bruno Costa', 5, 3000.75);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230003', 'Carlos Pereira', 4, 2000.00);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230004', 'Daniela Souza', 7, 3500.20);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230005', 'Eduardo Lima', 3, 1500.40);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230006', 'Fernanda Oliveira', 8, 4000.60);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230007', 'Gustavo Santos', 6, 2700.30);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230008', 'Helena Rocha', 5, 2900.90);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230009', 'Igor Martins', 4, 2300.00);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230010', 'Julia Mendes', 7, 3100.10);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230011', 'Lucas Almeida', 6, 2800.80);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230012', 'Mariana Barbosa', 5, 2600.50);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230013', 'Nicolas Ferreira', 8, 4200.40);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230014', 'Olivia Cardoso', 3, 1700.20);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230015', 'Pedro Azevedo', 5, 2500.00);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230016', 'Quezia Farias', 4, 2200.70);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230017', 'Ricardo Ribeiro', 7, 3400.90);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230018', 'Sofia Vasconcelos', 6, 2900.50);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230019', 'Tiago Macedo', 5, 2400.30);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230020', 'Ursula Braga', 4, 2100.10);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230021', 'Victor Neves', 6, 2700.70);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230022', 'Wesley Nunes', 7, 3100.40);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230023', 'Ximena Silva', 8, 3800.50);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230024', 'Yuri Cunha', 5, 2600.60);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230025', 'Zara Monteiro', 4, 2400.70);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230026', 'Arthur Ramos', 6, 2700.80);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230027', 'Beatriz Nogueira', 7, 3200.90);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230028', 'Caio Teixeira', 8, 3500.00);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230029', 'Diana Carvalho', 5, 2800.10);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230030', 'Emilio Araujo', 6, 2900.20);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230031', 'Fabiana Costa', 7, 3300.30);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230032', 'Gabriel Rocha', 4, 2200.40);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230033', 'Heloisa Mendes', 5, 2500.50);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230034', 'Isabela Lima', 6, 2900.60);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230035', 'Joao Cardoso', 7, 3200.70);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230036', 'Karina Oliveira', 8, 3500.80);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230037', 'Leandro Silva', 5, 2600.90);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230038', 'Manuela Santos', 4, 2300.00);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230039', 'Natalia Correia', 6, 2800.10);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230040', 'Otavio Melo', 7, 3100.20);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230041', 'Paula Silva', 8, 3400.30);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230042', 'Quintino Costa', 5, 2700.40);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230043', 'Raquel Sousa', 4, 2200.50);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230044', 'Samuel Fernandes', 6, 2800.60);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230045', 'Tatiana Barros', 7, 3200.70);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230046', 'Ugo Lima', 8, 3600.80);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230047', 'Valeria Pereira', 5, 2500.90);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230048', 'Wagner Silva', 4, 2300.00);
-INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('20230049', 'Xuxa Braga', 6, 2900.10);
+INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('00169506', 'Marcelo Avelino', 6, 2500.50);
+INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('00034548', 'Ana Silva', 5, 3000.75);
+INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('00034549', 'Bruno Costa', 4, 2000.00);
+INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('00034550', 'Carlos Pereira', 7, 3500.20);
+INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('00034551', 'Daniela Souza', 3, 1500.40);
+INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('00034552', 'Eduardo Lima', 8, 4000.60);
+INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('00034553', 'Fernanda Oliveira', 6, 2700.30);
+INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('00034554', 'Gustavo Santos', 5, 2900.90);
+INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('00034555', 'Helena Rocha', 4, 2300.00);
+INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('00034556', 'Igor Martins', 7, 3100.10);
+INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('00034557', 'Julia Mendes', 6, 2800.80);
+INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('00034558', 'Lucas Almeida', 5, 2600.50);
+INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('00034559', 'Mariana Barbosa', 8, 4200.40);
+INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('00034560', 'Nicolas Ferreira', 3, 1700.20);
+INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('00034561', 'Olivia Cardoso', 5, 2500.00);
+INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('00034562', 'Pedro Azevedo', 4, 2200.70);
+INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('00034563', 'Quezia Farias', 7, 3400.90);
+INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('00034564', 'Ricardo Ribeiro', 6, 2900.50);
+INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('00034565', 'Sofia Vasconcelos', 5, 2400.30);
+INSERT INTO aluno (ra, nome, tempoestudo, rendafamiliar) VALUES ('00034566', 'Tiago Macedo', 4, 2100.10);
+*/
+
+-- Inserção de dados nas novas colunas para registros existentes (realizado em 05/08/2024)
+UPDATE aluno SET nome = 'Marcelo Avelino', tempoestudo = 6, rendafamiliar = 2500.50 WHERE ra = '00169506';
+UPDATE aluno SET nome = 'Ana Silva', tempoestudo = 5, rendafamiliar = 3000.75 WHERE ra = '00034548';
+UPDATE aluno SET nome = 'Bruno Costa', tempoestudo = 4, rendafamiliar = 2000.00 WHERE ra = '00034549';
+UPDATE aluno SET nome = 'Carlos Pereira', tempoestudo = 7, rendafamiliar = 3500.20 WHERE ra = '00034550';
+UPDATE aluno SET nome = 'Daniela Souza', tempoestudo = 3, rendafamiliar = 1500.40 WHERE ra = '00034551';
+UPDATE aluno SET nome = 'Eduardo Lima', tempoestudo = 8, rendafamiliar = 4000.60 WHERE ra = '00034552';
+UPDATE aluno SET nome = 'Fernanda Oliveira', tempoestudo = 6, rendafamiliar = 2700.30 WHERE ra = '00034553';
+UPDATE aluno SET nome = 'Gustavo Santos', tempoestudo = 5, rendafamiliar = 2900.90 WHERE ra = '00034554';
+UPDATE aluno SET nome = 'Helena Rocha', tempoestudo = 4, rendafamiliar = 2300.00 WHERE ra = '00034555';
+UPDATE aluno SET nome = 'Igor Martins', tempoestudo = 7, rendafamiliar = 3100.10 WHERE ra = '00034556';
+UPDATE aluno SET nome = 'Julia Mendes', tempoestudo = 6, rendafamiliar = 2800.80 WHERE ra = '00034557';
+UPDATE aluno SET nome = 'Lucas Almeida', tempoestudo = 5, rendafamiliar = 2600.50 WHERE ra = '00034558';
+UPDATE aluno SET nome = 'Mariana Barbosa', tempoestudo = 8, rendafamiliar = 4200.40 WHERE ra = '00034559';
+UPDATE aluno SET nome = 'Nicolas Ferreira', tempoestudo = 3, rendafamiliar = 1700.20 WHERE ra = '00034560';
+UPDATE aluno SET nome = 'Olivia Cardoso', tempoestudo = 5, rendafamiliar = 2500.00 WHERE ra = '00034561';
+UPDATE aluno SET nome = 'Pedro Azevedo', tempoestudo = 4, rendafamiliar = 2200.70 WHERE ra = '00034562';
+UPDATE aluno SET nome = 'Quezia Farias', tempoestudo = 7, rendafamiliar = 3400.90 WHERE ra = '00034563';
+UPDATE aluno SET nome = 'Ricardo Ribeiro', tempoestudo = 6, rendafamiliar = 2900.50 WHERE ra = '00034564';
+UPDATE aluno SET nome = 'Sofia Vasconcelos', tempoestudo = 5, rendafamiliar = 2400.30 WHERE ra = '00034565';
+UPDATE aluno SET nome = 'Tiago Macedo', tempoestudo = 4, rendafamiliar = 2100.10 WHERE ra = '00034566';
+
+-- Visualizar os dados na tabela Aluno após os updates
+SELECT * FROM Aluno;
+
+/*
+Explicação
+Criação da Database e Tabelas: Mantivemos a estrutura inicial do código, criando a database projetodiario e as tabelas Aluno, diariobordo, e avaliacao com as colunas apropriadas.
+
+Inserção de Dados: Inserimos dados nas tabelas Aluno, diariobordo, e avaliacao conforme especificado.
+
+Alteração da Tabela Aluno (05/08/2024):
+
+Adicionamos três novas colunas: nome, tempoestudo, e rendafamiliar.
+Comentário sobre a Inserção:
+
+Explicamos por que o INSERT INTO não funciona para adicionar dados nas novas colunas para registros existentes, pois resultaria em duplicação de chaves primárias (ra).
+Atualização de Dados (UPDATE):
+
+Utilizamos o UPDATE para adicionar valores nas novas colunas para os registros existentes, mantendo a consistência dos dados sem duplicar registros.
+Motivo do Uso de UPDATE em vez de INSERT INTO
+Inserção de Dados em Registros Existentes: O INSERT INTO não pode ser utilizado para atualizar registros existentes, pois tentaria criar novas linhas com chaves primárias duplicadas, resultando em erro de duplicação.
+O UPDATE permite modificar registros existentes adicionando os novos valores às colunas recém-criadas, mantendo a integridade dos dados e evitando duplicações.
+*/
+
+-- Consulta para combinar dados das tabelas 'Aluno', 'diariobordo' e 'avaliacao'
+SELECT 
+    a.id AS aluno_id, -- ID do aluno
+    a.ra AS registro_academico, -- RA do aluno
+    a.nome, -- Nome do aluno
+    a.tempoestudo, -- Tempo de estudo do aluno
+    a.rendafamiliar, -- Renda familiar do aluno
+    d.id AS diariobordo_id, -- ID do diário de bordo
+    d.texto AS atividade, -- Texto do diário de bordo
+    d.datahora AS data_atividade, -- Data e hora da atividade do diário de bordo
+    av.id AS avaliacao_id, -- ID da avaliação
+    av.nota1, -- Nota 1 da avaliação
+    av.nota2, -- Nota 2 da avaliação
+    av.nota3, -- Nota 3 da avaliação
+    av.nota4 -- Nota 4 da avaliação
+FROM 
+    aluno a
+LEFT JOIN 
+    diariobordo d ON a.id = d.fk_aluno_id
+LEFT JOIN 
+    avaliacao av ON a.id = av.fk_aluno_id
+ORDER BY 
+    a.id, d.datahora, av.id;
+
+/*
+Explicação da Consulta:
+JOIN:
+Utilizamos LEFT JOIN para incluir todos os registros da tabela Aluno e os registros correspondentes nas tabelas diariobordo e avaliacao.
+LEFT JOIN garante que todos os alunos sejam incluídos na consulta, mesmo que não tenham registros correspondentes nas outras tabelas (diariobordo ou avaliacao).
+
+SELECT:
+Selecionamos as colunas relevantes de cada tabela, incluindo os IDs e os dados de interesse.
+Renomeamos algumas colunas para tornar a saída mais clara (por exemplo, a.id AS aluno_id).
+
+ORDER BY:
+Ordenamos os resultados pelo ID do aluno (a.id), data e hora da atividade (d.datahora), e ID da avaliação (av.id), para organizar os dados de maneira lógica e cronológica.
+Esta consulta fornecerá uma visão abrangente de todos os registros em suas tabelas Aluno, diariobordo, e avaliacao, mostrando como eles estão relacionados entre si.
+*/
